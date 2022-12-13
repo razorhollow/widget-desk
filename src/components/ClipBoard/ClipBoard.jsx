@@ -1,10 +1,15 @@
-import React from 'react'
 import styles from './ClipBoard.module.css'
+import copy from 'copy-to-clipboard'
 
-const ClipBoard = (props) => {
+
+const ClipBoard = ({ sortedJobNumbers }) => {
+    const handleClick = () => {
+        copy(sortedJobNumbers.join(', '))
+    }
   return (
     <div className={styles.container}>
-      <p>{props.sortedJobNumbers.join(", ")}</p>
+      <p>{sortedJobNumbers.join(", ")}</p>
+      <button onClick={handleClick}>Copy</button>
     </div>
   )
 }
