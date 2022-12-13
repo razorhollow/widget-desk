@@ -3,8 +3,10 @@ import { useState, useEffect } from 'react'
 
 const JobSorter = () => {
     const [jobNumbers, setJobNumbers] = useState("")
+    const [sortedJobNumbers, setSortedJobNumbers] = useState([])
     const handleChange = evt => {
         setJobNumbers(evt.target.value)
+        sortJobs(evt.target.value)
     }
     const handleClear = (evt) => {
         evt.preventDefault()
@@ -12,9 +14,14 @@ const JobSorter = () => {
         console.log('cleared the input')
     }
 
+    const sortJobs = (inputString) => {
+        let inputArray = inputString.split(", ")
+        setSortedJobNumbers(inputArray.sort())
+    }
+
     useEffect(() => {
-        console.log(jobNumbers)
-    })
+        console.log(sortedJobNumbers)
+    }, [jobNumbers])
 
   return (
     <div className={styles.container}>
@@ -23,7 +30,7 @@ const JobSorter = () => {
         <textarea rows="5" cols="50" name="input" onChange={handleChange} value={jobNumbers}/>
         <button onClick={handleClear}>Clear</button>
       </form>
-      {!jobNumbers ? <p>Enter Job Numbers to Sort</p> : <p>{jobNumbers}</p>}
+      {!jobNumbers ? <p>Enter Job Numbers to Sort</p> : <p>{sortedJobNumbers.join(", ")}</p>}
     </div>
   )
 }
