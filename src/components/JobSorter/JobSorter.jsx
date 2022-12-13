@@ -1,6 +1,8 @@
 import styles from './JobSorter.module.css'
 import { useState, useEffect } from 'react'
 
+import ClipBoard from '../ClipBoard/ClipBoard'
+
 const JobSorter = () => {
     const [jobNumbers, setJobNumbers] = useState("")
     const [sortedJobNumbers, setSortedJobNumbers] = useState([])
@@ -16,12 +18,8 @@ const JobSorter = () => {
 
     const sortJobs = (inputString) => {
         let inputArray = inputString.split(", ")
-        setSortedJobNumbers(inputArray.sort())
+        setSortedJobNumbers(inputArray.sort((a,b) => a-b))
     }
-
-    useEffect(() => {
-        console.log(sortedJobNumbers)
-    }, [jobNumbers])
 
   return (
     <div className={styles.container}>
@@ -30,7 +28,7 @@ const JobSorter = () => {
         <textarea rows="5" cols="50" name="input" onChange={handleChange} value={jobNumbers}/>
         <button onClick={handleClear}>Clear</button>
       </form>
-      {!jobNumbers ? <p>Enter Job Numbers to Sort</p> : <p>{sortedJobNumbers.join(", ")}</p>}
+      {!jobNumbers ? <p>Enter Job Numbers to Sort</p> : <ClipBoard sortedJobNumbers={sortedJobNumbers}/>}
     </div>
   )
 }
