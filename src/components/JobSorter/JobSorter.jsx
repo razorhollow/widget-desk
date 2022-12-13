@@ -13,7 +13,6 @@ const JobSorter = () => {
     const handleClear = (evt) => {
         evt.preventDefault()
         setJobNumbers("")
-        console.log('cleared the input')
     }
 
     const sortJobs = (inputString) => {
